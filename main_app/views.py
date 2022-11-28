@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Bird
-
+from .forms import FeedingForm
 # Create your views here.
 
 # class Bird():
@@ -40,8 +40,11 @@ def birds_details(request, bird_id):
     
     bird = Bird.objects.get(id=bird_id)
 
+    feeding_form = FeedingForm()
+
     context ={
-        'bird': bird
+        'bird': bird,
+        'feeding_form': feeding_form
     }
 
     return render(request, 'birds/details.html', context)
@@ -60,3 +63,18 @@ class UpdateBird(UpdateView):
 class DeleteBird(DeleteView):
     model = Bird
     success_url = '/birds/'
+
+
+
+def add_feeding(request, bird_id):
+
+  
+  form = FeedingForm(request.POST)
+
+  if form.is_valid():
+      new_feeding = form.save(commit=False)
+      new_feeding.bird_id = bird_id
+      new_feeding.save()
+
+
+  return redirect('details', bird_id=bird_id)

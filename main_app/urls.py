@@ -12,4 +12,7 @@ urlpatterns = [
     path('bird/<int:pk>/update', views.UpdateBird.as_view(), name='bird_update'),
 
     path('bird/<int:pk>/delete', views.DeleteBird.as_view(), name='bird_delete'),
+
+    path('bird/<int:bird_id>/add_feeding', views.add_feeding, name="add_feeding")
+
 ]
