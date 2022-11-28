@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Single Bird</h1>
+
+        
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ bird.name }}</span>
+            <p>Breed: {{ bird.breed }}</p>
+            <p>Description: {{ bird.description }}</p>
+            <p>Bird Age: {{ bird.age }}</p>
+        </div>
+    
+        <div class="card-action">
+            <a href="{% url 'bird_update' bird.id %}">Edit</a>
+            <a href="{% url 'bird_delete' bird.id %}">Delete</a>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}
